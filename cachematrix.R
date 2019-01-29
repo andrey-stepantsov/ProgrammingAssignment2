@@ -2,7 +2,7 @@
 ## computation of inverse matrix that is potentially a
 ## time-consuming computation.
 ##
-## To try these functions source this file in R and call
+## To try these functions, source this file in R and call
 ##      cacheSolveDemo()
 ##      cacheSolveExample()
 ##
