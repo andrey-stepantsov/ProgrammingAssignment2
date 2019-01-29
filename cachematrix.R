@@ -1,6 +1,6 @@
 ## The functions in this module are to support caching of 
-## computation of inverse matrix that is potentially a
-## time-consuming computation.
+## computation of inverse matrix that is potentially
+## time-consuming one.
 ##
 ## To try these functions, source this file in R and call
 ##      cacheSolveDemo()
@@ -11,14 +11,16 @@
 ##      a1 <- makeCacheMatrix(m1)
 ##      b1 <- cacheSolve(a1)
 ##
-## Where variable a1 is special cached matrix (so, regular
-## matrix operations can not be allpied to it.) And,
+## Where variable a1 is special cached matrix. And,
 ## the variables m1 and b1 are regualr matricies: m1 is
 ## the source matrix and b1 is the inverse matrix of m1.
 ##
 ## Limitations
 ##
 ## The functions assume that the imput matrix are inversible
+##
+## Regular matrix operations cannot be applied to matricies
+## created with 'makeCacheMatrix' directly.
 ## 
 
 #' makeCacheMatrix
