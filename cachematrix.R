@@ -1,6 +1,6 @@
 ## The functions in this module are to support caching of 
-## computation of inverse matrix that is potentially
-## time-consuming one.
+## computation of inverse matrix that is a potentially
+## time-consuming computation.
 ##
 ## To try these functions, source this file in R and call
 ##      cacheSolveDemo()
@@ -28,8 +28,16 @@
 #' create a special object that caches result of computatios
 #' perfromed by the standard 'solve' function.
 #' 
-#' method '$get' of a chach matrix allows to recall original
-#' matrix wrapped insed the cache matrix
+#' method '$get' of a cache matrix allows to recall original
+#' matrix wrapped insed the cache matrix.
+#' 
+#'   The function initializes with NULL an internal variable 'm',
+#' which is used to hold the result of the cached calculation.
+#' Later, when the 'cacheSolve' function is called the first time,
+#' the computed inverse matrix is stored in the 'm' variable.
+#' Note that the "super assign" operator '<<-' is used to assign
+#' the cached value to to the parent scope of the function.
+#'
 #'
 #' @param x regular matrix to cache
 #' 
@@ -61,6 +69,16 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 #' cacheSolve
+#' 
+#' The function takes care of computing of an inverse matrix,
+#' when called the first time. All the subsequent calls would
+#' return the cached value.
+#' 
+#' It is important to note that it is not enough simpply to
+#' assign the computer inverse mattrix to 'm', becasue it
+#' would assing only a local copy of the valiable. Instead,
+#' the 'set_imatr' function is used to assign the value stored
+#' in the parent scope. 
 #'
 #' @param x special cache matrix created by 'makeCacheMatrix'
 #'          functon
@@ -93,7 +111,7 @@ cacheSolveExample <- function(n = 4) {
     message("inverse matrix:")
     print( cacheSolve(a1))
     message("identity matrix:")
-    print( round(b1 %*% a1$get()) )
+    print( round(b1 %*% m1) )
     invisible()
 }
 
@@ -121,7 +139,7 @@ cacheSolveDemo <- function(n = 4) {
     message("# multiplication of a1 and b1 must be an identity matrix")
      
     message("# b1 %*% a1$get() :")
-    print( round(b1 %*% a1$get()) )
+    print( round(b1 %*% m1) )
     invisible()
 }
 
